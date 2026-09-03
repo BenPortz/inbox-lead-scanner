@@ -1,0 +1,71 @@
+# Inbox Lead Scanner configuration.
+# Copy to config.yaml and edit. Gmail is read-only, the model runs locally.
+
+# Used in the classifier prompt so the model knows whose inbox this is.
+owner: "a freelance developer"
+
+# Gmail accounts to scan. All accounts share the one credentials.json OAuth
+# client in this folder. Each gets its own read-only token file, created on
+# first run through a browser consent.
+accounts:
+  - name: work
+    email: you@example.com
+    token_file: token_work.json
+
+  - name: personal
+    email: you@gmail.com
+    token_file: token_personal.json
+
+# What to detect. Add, remove, or reword these freely. The name becomes the
+# lead_type value in the CSV, and the description goes into the prompt.
+categories:
+  - name: hiring
+    description: >
+      A person or company trying to hire, contract, or recruit you. A job
+      offer, consulting work, an interview request, or an approach about
+      full-time or freelance work.
+
+  - name: sponsorship
+    description: >
+      Someone who wants their project, product, tool, or content reviewed,
+      mentioned, featured, or sponsored in something you publish.
+
+# Local model. Nothing is sent to a hosted API.
+ollama:
+  model: "llama3.1:8b"
+  host: "http://127.0.0.1:11434"   # 127.0.0.1 rather than localhost, which can resolve to IPv6
+
+scan:
+  accounts: [work, personal]        # which of the above to include
+  lookback_days: 365
+  query: "in:inbox -in:chats"       # received mail, excluding Google Chat
+  max_emails: 20000                 # per account, per run
+  body_chars: 4000                  # how much of each body goes to the model
+  filter: all                       # "keyword" for the fast pre-gate, "all" for every email
+
+  # Only used when filter is "keyword". A cheap substring gate that skips
+  # obvious non-outreach before spending a model call on it.
+  keywords:
+    - hire
+    - hiring
+    - recruit
+    - recruiter
+    - role
+    - position
+    - opening
+    - opportunity
+    - contract
+    - freelance
+    - full-time
+    - part-time
+    - interview
+    - collaborate
+    - collaboration
+    - partner
+    - partnership
+    - sponsor
+    - sponsorship
+    - promote
+    - placement
+    - review our
+    - work with you

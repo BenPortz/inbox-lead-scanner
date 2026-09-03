@@ -1,0 +1,11 @@
+# Gmail read-only access
+google-api-python-client>=2.100
+google-auth-oauthlib>=1.2
+google-auth-httplib2>=0.2
+
+# Local LLM. No API key, nothing leaves the machine.
+ollama>=0.3
+
+# Config and HTML email parsing
+PyYAML>=6.0
+beautifulsoup4>=4.12

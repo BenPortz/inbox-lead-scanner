@@ -1,0 +1,17 @@
+# Secrets. Never commit these.
+credentials.json
+token*.json
+config.yaml
+
+# Local data. Scanned email content lives here.
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
