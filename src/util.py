@@ -27,7 +27,7 @@ def ensure_dirs() -> None:
 
 
 def extract_json(text: str) -> Any:
-    """Parse JSON from a model response that may include prose or ```json fences.
+    """Parse JSON from a model response that may include surrounding text or ```json fences.
 
     Strategy: try a straight parse; else strip code fences; else grab the first
     balanced {...} or [...] block. Raises ValueError if nothing parses.
