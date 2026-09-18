@@ -24,7 +24,7 @@ confidence, subject, gmail_link
 
 ## Categories are configuration
 
-The classifier is driven by `config.yaml`, not by code. The shipped example detects hiring and sponsorship:
+The classifier reads its categories from `config.yaml`. The shipped example detects hiring and sponsorship:
 
 ```yaml
 owner: "a freelance developer"
